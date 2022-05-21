@@ -5,35 +5,35 @@ let namespaces: Namespace[] = [];
 
 let wikiNs = new Namespace(
   0,
-  "Wiki",
-  "https://upload.wikimedia.org/wikipedia/commons/2/2c/Tango_style_Wikipedia_Icon.svg",
-  "/wiki"
+  "Warcraft",
+  "https://upload.wikimedia.org/wikipedia/commons/e/eb/WoW_icon.svg",
+  "/warcraft"
 );
 let mozNs = new Namespace(
   1,
-  "Mozilla",
-  "https://upload.wikimedia.org/wikipedia/commons/7/76/Mozilla_Firefox_logo_2013.svg",
-  "/mozilla"
+  "Memes",
+  "https://upload.wikimedia.org/wikipedia/commons/8/83/Noto_Emoji_Pie_1f60e.svg",
+  "/memes"
 );
 let linuxNs = new Namespace(
   2,
-  "Linux",
-  "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-  "/linux"
+  "Politics",
+  "https://www.svgrepo.com/show/293777/politics.svg",
+  "/politics"
 );
 
-wikiNs.addRoom(new Room(0, "New Articles", false, "Wiki"));
-wikiNs.addRoom(new Room(1, "Editors", false, "Wiki"));
-wikiNs.addRoom(new Room(2, "Other", false, "Wiki"));
+wikiNs.addRoom(new Room(0, "General", false, "Wiki"));
+wikiNs.addRoom(new Room(1, "Theorycrafting", false, "Wiki"));
+wikiNs.addRoom(new Room(2, "News", false, "Wiki"));
 
-mozNs.addRoom(new Room(0, "Firefox", false, "Mozilla"));
-mozNs.addRoom(new Room(1, "SeaMonkey", false, "Mozilla"));
-mozNs.addRoom(new Room(2, "SpiderMonkey", false, "Mozilla"));
-mozNs.addRoom(new Room(3, "Rust", false, "Mozilla"));
+mozNs.addRoom(new Room(0, "General", false, "Mozilla"));
+mozNs.addRoom(new Room(1, "Fresh Memes", false, "Mozilla"));
+mozNs.addRoom(new Room(2, "Old", false, "Mozilla"));
+mozNs.addRoom(new Room(3, "Rehab", false, "Mozilla"));
 
-linuxNs.addRoom(new Room(0, "Debian", false, "Linux"));
-linuxNs.addRoom(new Room(0, "Red Hat", false, "Linux"));
-linuxNs.addRoom(new Room(0, "MacOS", false, "Linux"));
+linuxNs.addRoom(new Room(0, "Breaking", false, "Linux"));
+linuxNs.addRoom(new Room(0, "Dems", false, "Linux"));
+linuxNs.addRoom(new Room(0, "GOP", false, "Linux"));
 
 namespaces.push(wikiNs, mozNs, linuxNs);
 

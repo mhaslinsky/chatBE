@@ -9,13 +9,15 @@ const expressServer = app.listen(4000, () => {
 });
 const io = new Server(expressServer, { cors: { origin: "*" } });
 
-namespaces.forEach((ns) => {
-  io.of(ns.endpoint).on("connection", (socket) => {
-    console.log(`${socket.id} has joined ${ns.endpoint}!`);
+io.on("connection", (socket) => {
+  let nsData = namespaces.map((ns) => {
+    return { id: ns.id, img: ns.img, endpoint: ns.endpoint };
   });
+  socket.emit("nsList", nsData);
 });
 
-// const httpServer = createServer();
-// httpServer.listen(4000, () => {
-//   console.log("socket.io listening on PORT 4000");
-// });
+namespaces.forEach((ns) => {
+  io.of(ns.endpoint).on("connection", (socket) => {
+    // console.log(`${socket.id} has joined ${ns.endpoint}!`);
+  });
+});
