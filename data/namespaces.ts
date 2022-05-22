@@ -22,18 +22,18 @@ let linuxNs = new Namespace(
   "/politics"
 );
 
-wikiNs.addRoom(new Room(0, "General", false, "Wiki"));
-wikiNs.addRoom(new Room(1, "Theorycrafting", false, "Wiki"));
-wikiNs.addRoom(new Room(2, "News", false, "Wiki"));
+wikiNs.addRoom(new Room(0, "General", false, "Warcraft"));
+wikiNs.addRoom(new Room(1, "Theorycrafting", false, "Warcraft"));
+wikiNs.addRoom(new Room(2, "News", false, "Warcraft"));
 
-mozNs.addRoom(new Room(0, "General", false, "Mozilla"));
-mozNs.addRoom(new Room(1, "Fresh Memes", false, "Mozilla"));
-mozNs.addRoom(new Room(2, "Old", false, "Mozilla"));
-mozNs.addRoom(new Room(3, "Rehab", false, "Mozilla"));
+mozNs.addRoom(new Room(0, "General", false, "Memes"));
+mozNs.addRoom(new Room(1, "Fresh Memes", false, "Memes"));
+mozNs.addRoom(new Room(2, "Old", false, "Memes"));
+mozNs.addRoom(new Room(3, "Rehab", false, "Memes"));
 
-linuxNs.addRoom(new Room(0, "Breaking", false, "Linux"));
-linuxNs.addRoom(new Room(0, "Dems", false, "Linux"));
-linuxNs.addRoom(new Room(0, "GOP", false, "Linux"));
+linuxNs.addRoom(new Room(0, "Breaking", false, "Politics"));
+linuxNs.addRoom(new Room(1, "Dems", false, "Politics"));
+linuxNs.addRoom(new Room(2, "GOP", false, "Politics"));
 
 namespaces.push(wikiNs, mozNs, linuxNs);
 

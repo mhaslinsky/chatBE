@@ -1,5 +1,5 @@
 export default class Room {
-  roomId: number;
+  id: number;
   roomTitle: string;
   privateRoom: boolean;
   history: any[];
@@ -10,7 +10,7 @@ export default class Room {
     privateRoom = false,
     namespace?: string
   ) {
-    this.roomId = roomId;
+    this.id = roomId;
     this.roomTitle = roomTitle;
     this.privateRoom = privateRoom;
     this.history = [];

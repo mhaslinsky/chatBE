@@ -19,5 +19,6 @@ io.on("connection", (socket) => {
 namespaces.forEach((ns) => {
   io.of(ns.endpoint).on("connection", (socket) => {
     // console.log(`${socket.id} has joined ${ns.endpoint}!`);
+    socket.emit("nsRoomLoad", ns.rooms);
   });
 });
