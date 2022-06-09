@@ -20,7 +20,6 @@ io.on("connection", (socket) => {
 namespaces.forEach((ns) => {
   io.of(ns.endpoint).on("connection", (socket) => {
     const username = socket.handshake.query.username;
-    console.log(username);
     socket.emit("nsRoomLoad", ns.rooms);
     //when someone emits a join request, we take the room they want to join
     //and pass back the number of users in it
@@ -32,9 +31,6 @@ namespaces.forEach((ns) => {
       });
       socket.emit("historyGET", nsRoom.history);
       updateUsersInRoom(ns, roomToJoin);
-      // io.of(ns.endpoint)
-      //   .to(roomToJoin)
-      //   .emit("updateMembers", numOfUsersConnected);
     });
     socket.on("leaveRoom", async (roomToLeave) => {
       socket.leave(roomToLeave);
