@@ -16,7 +16,7 @@ export default class Room {
     this.history = [];
     this.namespace = namespace;
   }
-  addMessage(message: string) {
+  addMessage(message: any) {
     this.history.push(message);
   }
   clearHistory() {

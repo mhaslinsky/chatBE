@@ -1,6 +1,7 @@
 import express from "express";
 import { Server } from "socket.io";
 import namespaces from "./data/namespaces";
+import Namespace from "./classes/Namespace";
 
 const app = express();
 app.use(express.static(__dirname + "/public"));
@@ -18,23 +19,49 @@ io.on("connection", (socket) => {
 
 namespaces.forEach((ns) => {
   io.of(ns.endpoint).on("connection", (socket) => {
-    // console.log(`${socket.id} has joined ${ns.endpoint}!`);
+    const username = socket.handshake.query.username;
+    console.log(username);
     socket.emit("nsRoomLoad", ns.rooms);
     //when someone emits a join request, we take the room they want to join
     //and pass back the number of users in it
-    socket.on("joinRoom", async (roomToJoin, numberOfUsersCallback) => {
+    socket.on("joinRoom", async (roomToJoin) => {
       socket.join(roomToJoin);
-      //returns set of all sockets connected to room in ns
-      const ids = await io.of(ns.endpoint).in(roomToJoin).allSockets();
-      const numOfUsersConnected = ids.size;
-      numberOfUsersCallback(numOfUsersConnected);
+      //find the matching room obj inside the current NS obj
+      const nsRoom = ns.rooms.find((room) => {
+        return room.roomTitle === roomToJoin;
+      });
+      socket.emit("historyGET", nsRoom.history);
+      updateUsersInRoom(ns, roomToJoin);
+      // io.of(ns.endpoint)
+      //   .to(roomToJoin)
+      //   .emit("updateMembers", numOfUsersConnected);
     });
-    socket.on("leaveRoom", (roomToLeave) => {
+    socket.on("leaveRoom", async (roomToLeave) => {
       socket.leave(roomToLeave);
+      updateUsersInRoom(ns, roomToLeave);
     });
     socket.on("newMessageToServer", (msg) => {
-      const roomTitle = Object.keys(socket.rooms)[1];
-      io.of(ns.endpoint).to(roomTitle).emit("messageToClients", msg);
+      const fullMsg = {
+        text: msg.text,
+        time: Date.now(),
+        username: username,
+        avatar:
+          "https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif",
+      };
+      const roomTitle = Array.from(socket.rooms)[1];
+      //need to use room string to find room object of same title in ns object
+      const nsRoom = ns.rooms.find((room) => {
+        return room.roomTitle === roomTitle;
+      });
+      nsRoom.addMessage(fullMsg);
+      io.of(ns.endpoint).to(roomTitle).emit("messageToClients", fullMsg);
     });
   });
 });
+
+async function updateUsersInRoom(ns: Namespace, room: string) {
+  //returns set of all sockets connected to room in ns
+  const ids = await io.of(ns.endpoint).in(room).allSockets();
+  const numOfUsersConnected = ids.size;
+  io.of(ns.endpoint).to(room).emit("updateMembers", numOfUsersConnected);
+}
