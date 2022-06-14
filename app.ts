@@ -7,7 +7,7 @@ import "dotenv/config";
 const app = express();
 app.use(express.static(__dirname + "/public"));
 const expressServer = app.listen(process.env.PORT, () => {
-  console.log(`socket.io listening on PORT ${process.env.PORT}`);
+  console.log(`socket.io listening on PORT ${process.env.PORT}!`);
 });
 const io = new Server(expressServer, { cors: { origin: "*" } });
 
